@@ -26,7 +26,7 @@
             font-family: 'Gowun Batang', serif;
         }
 
-        /* Paper texture background with a clean notebook feel */
+        /* Paper texture background */
         .paper-bg {
             background-color: #FAF8F5;
             background-image: 
@@ -37,21 +37,21 @@
 
         /* Custom scrollbar for list inside the slide container */
         .slide-scroll::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
         .slide-scroll::-webkit-scrollbar-track {
             background: rgba(0, 0, 0, 0.02);
         }
         .slide-scroll::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
-            border-radius: 2px;
+            background: rgba(148, 163, 184, 0.4);
+            border-radius: 3px;
         }
         .slide-scroll {
             scrollbar-width: thin;
-            scrollbar-color: rgba(148, 163, 184, 0.3) rgba(0, 0, 0, 0.02);
+            scrollbar-color: rgba(148, 163, 184, 0.4) rgba(0, 0, 0, 0.02);
         }
 
-        /* Prevent system scrollbars in editor area */
+        /* Hide scrollbars for editor area */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -64,12 +64,12 @@
 <body class="min-h-screen flex flex-col items-center justify-start p-4 md:p-8">
 
     <!-- Tool Header -->
-    <div class="w-full max-w-6xl bg-white/90 backdrop-blur-md border border-slate-200 rounded-2xl shadow-sm p-4 mb-6 flex flex-wrap gap-4 items-center justify-between z-10">
+    <div class="w-full max-w-6xl bg-white/90 backdrop-blur-md border border-slate-200 rounded-2xl shadow-sm p-4 mb-6 flex flex-wrap gap-4 items-center justify-between z-30">
         <div class="flex items-center gap-3">
             <span class="text-xl">✍️</span>
             <div>
                 <h1 class="text-sm font-semibold text-slate-800">식사 예절 16:9 슬라이드 & 드로잉 빌더</h1>
-                <p class="text-xs text-slate-500">원하는 대로 자유롭게 적고, 화면 위에 그림과 필기를 남겨보세요.</p>
+                <p class="text-xs text-slate-500">원하는 내용을 무제한 추가하고 슬라이드 위에 손그림을 그려보세요.</p>
             </div>
         </div>
         <div class="flex flex-wrap items-center gap-2">
@@ -88,24 +88,25 @@
         
         <!-- Sidebar Controls -->
         <div id="editor-sidebar" class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-5 transition-all">
-<!-- Drawing Tool Settings -->
+            
+            <!-- Drawing Tool Settings -->
             <div>
-                <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+<h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5">
                     <svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                     화면 그리기 / 마킹 도구
                 </h2>
                 
                 <!-- Drawing Canvas Mode Toggle -->
                 <div class="grid grid-cols-2 gap-2 mb-3">
-                    <button id="btn-mode-interact" onclick="setInteractionMode('interact')" class="py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1">
-                        <span>🖐️ 슬라이드 제어</span>
+                    <button id="btn-mode-interact" onclick="setInteractionMode('interact')" class="py-1.5 px-3 text-xs font-semibold rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1">
+                        <span>🖐️ 슬라이드 제어 (편집/스크롤)</span>
                     </button>
-                    <button id="btn-mode-draw" onclick="setInteractionMode('draw')" class="py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1">
-                        <span>✍️ 그리기 모드</span>
+                    <button id="btn-mode-draw" onclick="setInteractionMode('draw')" class="py-1.5 px-3 text-xs font-semibold rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1">
+                        <span>✍️ 자유 손그림 그리기</span>
                     </button>
                 </div>
 
-                <!-- Drawing Presets (Only visible when drawing mode is active) -->
+                <!-- Drawing Presets -->
                 <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 space-y-3">
                     <!-- Tool Types -->
                     <div>
@@ -117,9 +118,9 @@
                         </div>
                     </div>
 
-                    <!-- 5 Basic Colors -->
+                    <!-- 5 Colors -->
                     <div>
-                        <span class="text-[10px] text-slate-400 font-bold block mb-1.5">펜 / 형광펜 색상 (5 Basic Colors)</span>
+                        <span class="text-[10px] text-slate-400 font-bold block mb-1.5">색상 (5 Basic Colors)</span>
                         <div class="flex items-center gap-2">
                             <button onclick="setDrawColor('#1e293b')" class="w-6 h-6 rounded-full bg-[#1e293b] border-2 border-white ring-2 ring-transparent transition-all" id="col-navy" title="Muted Navy"></button>
                             <button onclick="setDrawColor('#0284c7')" class="w-6 h-6 rounded-full bg-[#0284c7] border-2 border-white ring-2 ring-transparent transition-all" id="col-blue" title="Soft Sky Blue"></button>
@@ -132,10 +133,10 @@
                     <!-- Brush Size -->
                     <div>
                         <div class="flex justify-between text-[10px] text-slate-400 font-bold mb-1">
-                            <span>브러시 굵기</span>
+                            <span>두께 설정</span>
                             <span id="brush-size-val">4px</span>
-</div>
-                        <input type="range" id="slider-brush-width" min="2" max="40" value="4" oninput="updateBrushWidth(this.value)" class="w-full accent-slate-700">
+                        </div>
+<input type="range" id="slider-brush-width" min="2" max="40" value="4" oninput="updateBrushWidth(this.value)" class="w-full accent-slate-700">
                     </div>
 
                     <button onclick="clearCanvas()" class="w-full py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold rounded-lg border border-rose-100 transition-all">
@@ -209,8 +210,8 @@
             <!-- 16:9 Aspect Ratio Main Container -->
             <div id="slide-outer-frame" class="w-full aspect-video min-w-[320px] max-w-[1920px] relative rounded-2xl shadow-lg border border-slate-200/60 overflow-hidden select-none transition-all duration-300">
                 
-                <!-- Main Paper Background -->
-                <div class="absolute inset-0 paper-bg flex flex-col justify-between py-6 md:py-8">
+                <!-- Main Paper Background (Positioned underneath) -->
+                <div class="absolute inset-0 paper-bg flex flex-col justify-between py-6 md:py-8 z-0">
                     
                     <!-- Aesthetic Minimal Doodles Layer -->
                     <!-- Star Doodles Left -->
@@ -272,7 +273,7 @@
                     </div>
                 </div>
 
-                <!-- Overlay Canvas for Drawing/Writing -->
+                <!-- Overlay Canvas for Drawing/Writing (Using z-index and pointer-events properly) -->
                 <canvas id="drawing-canvas" class="absolute inset-0 z-20 pointer-events-none cursor-crosshair"></canvas>
 
             </div>
@@ -281,7 +282,7 @@
     </div>
 
     <script>
-        Core Dining Etiquette Dataset
+        // Core Dining Etiquette Dataset
         let etiquetteData = [
             { text: "식사를 시작할 때: 어른이 먼저 수저를 드신 후에 시작하기", isPositive: true },
             { text: "밥그릇 들고 먹지 않기 (그릇은 항상 식탁 위에 내려두기)", isPositive: true },
@@ -303,16 +304,16 @@
         let isDrawing = false;
         let lastX = 0;
         let lastY = 0;
-        let drawMode = 'interact';  'interact' or 'draw'
-        let currentTool = 'pen';  'pen', 'highlighter', 'eraser'
-        let strokeColor = '#1e293b';  Starts with Navy
+        let drawMode = 'interact'; // 'interact' or 'draw'
+        let currentTool = 'pen'; // 'pen', 'highlighter', 'eraser'
+        let strokeColor = '#1e293b'; 
         let brushSize = 4;
         
-          Storing drawing paths relative to canvas width/height to make drawings perfectly responsive
+        // Storing drawing paths relative to canvas coordinates
         let drawPaths = [];
         let currentPath = null;
 
-         Initialize App
+        // Initialize App
         function init() {
             canvas = document.getElementById('drawing-canvas');
             ctx = canvas.getContext('2d');
@@ -324,55 +325,54 @@
             setupDrawingEvents();
             updateColorButtonUI();
 
-             Handle Resize to repaint canvas accurately
+            // Handle Window Resize to repaint canvas perfectly
             window.addEventListener('resize', () => {
                 setupCanvasSize();
                 redrawCanvas();
             });
         }
 
-         Setup Drawing Canvas Sizing
+        // Setup Drawing Canvas Sizing
         function setupCanvasSize() {
             const frame = document.getElementById('slide-outer-frame');
             const rect = frame.getBoundingClientRect();
             
-             Adjust to device pixel ratio for super crisp drawings
             const dpr = window.devicePixelRatio || 1;
             canvas.width = rect.width * dpr;
             canvas.height = rect.height * dpr;
             ctx.scale(dpr, dpr);
             
-             CSS Size
             canvas.style.width = `${rect.width}px`;
             canvas.style.height = `${rect.height}px`;
         }
 
-         Set interaction type (Interact with slide OR Pen Draw on screen)
+        // Set interaction mode (Critically switching 'pointer-events' style)
         function setInteractionMode(mode) {
             drawMode = mode;
             const btnInteract = document.getElementById('btn-mode-interact');
             const btnDraw = document.getElementById('btn-mode-draw');
 
             if (mode === 'draw') {
-                canvas.classList.remove('pointer-events-none');
-                btnDraw.className = "py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1";
+                // Activate mouse & touch events directly on canvas overlay
+                canvas.style.pointerEvents = 'auto';
+                btnDraw.className = "py-1.5 px-3 text-xs font-semibold rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1";
                 btnInteract.className = "py-1.
-5 px-3 text-xs font-medium rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1";
+5 px-3 text-xs font-semibold rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1";
             } else {
-                canvas.classList.add('pointer-events-none');
-                btnInteract.className = "py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1";
-                btnDraw.className = "py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1";
+                // Pass mouse & touch events through the canvas to permit editing and scrolling
+                canvas.style.pointerEvents = 'none';
+                btnInteract.className = "py-1.5 px-3 text-xs font-semibold rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1";
+                btnDraw.className = "py-1.5 px-3 text-xs font-semibold rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1";
             }
         }
 
-         Set Drawing Tool
+        // Set Drawing Tool
         function setDrawTool(tool) {
             currentTool = tool;
             document.getElementById('tool-pen').className = `flex-1 py-1 text-[11px] font-semibold rounded transition-all ${tool === 'pen' ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-600'}`;
             document.getElementById('tool-highlight').className = `flex-1 py-1 text-[11px] font-semibold rounded transition-all ${tool === 'highlighter' ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-600'}`;
             document.getElementById('tool-eraser').className = `flex-1 py-1 text-[11px] font-semibold rounded transition-all ${tool === 'eraser' ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-600'}`;
 
-             Adjust default brush size indicator
             if (tool === 'highlighter') {
                 document.getElementById('slider-brush-width').value = 16;
                 updateBrushWidth(16);
@@ -385,7 +385,7 @@
             }
         }
 
-         Set Draw Color
+        // Set Draw Color
         function setDrawColor(color) {
             strokeColor = color;
             updateColorButtonUI();
@@ -417,13 +417,13 @@
             document.getElementById('brush-size-val').innerText = `${val}px`;
         }
 
-           Clear Drawings
+        // Clear Drawings
         function clearCanvas() {
             drawPaths = [];
             redrawCanvas();
         }
 
-         Redraw saved coordinates relative to the current canvas dimensions
+        // Redraw canvas with proper relative scale
         function redrawCanvas() {
             const rect = canvas.getBoundingClientRect();
             ctx.clearRect(0, 0, rect.width, rect.height);
@@ -437,16 +437,15 @@
                 ctx.lineJoin = 'round';
 
                 if (path.type === 'eraser') {
-                     Simulating erase by painting back the background color of the paper texture
-                    ctx.strokeStyle = '#FAF8F5'; 
+                    ctx.strokeStyle = '#FAF8F5'; // Blend with warm cream paper base
                     ctx.globalAlpha = 1.0;
                 } else if (path.type === 'highlighter') {
                     ctx.strokeStyle = path.color;
-                    ctx.globalAlpha = 0.35;  Semitransparent highlighter
+                    ctx.globalAlpha = 0.35; // Translucent highligher
                 } else {
+                    ctx.strokeStyle = path.color;
                     ctx.
-strokeStyle = path.color;
-                    ctx.globalAlpha = 1.0;
+globalAlpha = 1.0;
                 }
 
                 const firstPoint = path.points[0];
@@ -459,21 +458,19 @@ strokeStyle = path.color;
                 ctx.stroke();
             });
 
-             Restore global alpha
             ctx.globalAlpha = 1.0;
         }
 
-         Canvas Drawing Interaction Handling
+        // Setup canvas events
         function setupDrawingEvents() {
             const getPos = (e) => {
                 const rect = canvas.getBoundingClientRect();
-                 Handle both touch and mouse events
                 const clientX = e.touches ? e.touches[0].clientX : e.clientX;
                 const clientY = e.touches ? e.touches[0].clientY : e.clientY;
                 return {
                     x: clientX - rect.left,
                     y: clientY - rect.top,
-                    rx: (clientX - rect.left) / rect.width,  Saved as ratio (0-1) for responsiveness
+                    rx: (clientX - rect.left) / rect.width,
                     ry: (clientY - rect.top) / rect.height
                 };
             };
@@ -496,7 +493,7 @@ strokeStyle = path.color;
 
             const draw = (e) => {
                 if (!isDrawing || drawMode !== 'draw') return;
-                e.preventDefault();  Prevents scroll on mobile during draw
+                e.preventDefault(); 
                 const pos = getPos(e);
 
                 ctx.beginPath();
@@ -522,29 +519,28 @@ strokeStyle = path.color;
                 lastX = pos.x;
                 lastY = pos.y;
 
-                 Save relative position
                 currentPath.points.push({ rx: pos.rx, ry: pos.ry });
             };
 
             const stopDraw = () => {
                 isDrawing = false;
                 currentPath = null;
-                redrawCanvas();  Restores perfectly smoothed paths
+                redrawCanvas(); 
             };
 
-             Mouse Listeners
+            // Mouse Event hooks
             canvas.addEventListener('mousedown', startDraw);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', stopDraw);
             canvas.addEventListener('mouseout', stopDraw);
 
-             Touch Listeners
+            // Touch Event hooks
             canvas.addEventListener('touchstart', startDraw, { passive: false });
             canvas.addEventListener('touchmove', draw, { passive: false });
             canvas.addEventListener('touchend', stopDraw);
         }
 
-         Render Sidebar Edit Elements
+        // Render Sidebar edit lists
         function renderEditor() {
             const container = document.getElementById('items-editor-container');
             container.innerHTML = '';
@@ -554,9 +550,10 @@ strokeStyle = path.color;
                 itemDiv.className = `p-2 rounded-lg border transition-all text-xs flex items-center justify-between gap-2 bg-slate-50 border-slate-200`;
 
                 itemDiv.innerHTML = `
-<div class="flex items-center gap-2 flex-grow">
+                    <div class="flex items-center gap-2 flex-grow">
                         <button onclick="toggleItemType(${index})" class="w-6 h-6 flex-shrink-0 flex items-center justify-center rounded font-bold text-xs ${
-                            item.isPositive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                            item.
+isPositive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
                         }">
                             ${item.isPositive ? 'O' : 'X'}
                         </button>
@@ -572,13 +569,12 @@ strokeStyle = path.color;
             });
         }
 
-         Apply custom live layout metrics on slide container
+        // Apply scaling
         function applyScaleSettings() {
             const fontSize = document.getElementById('slider-font-size').value;
             const gapSize = document.getElementById('slider-gap').value;
             const paddingSize = document.getElementById('slider-padding').value;
 
-             Update value labels
             document.getElementById('text-size-val').innerText = `${fontSize}px`;
             document.getElementById('gap-size-val').innerText = `${gapSize}px`;
             document.getElementById('padding-size-val').innerText = `${paddingSize}px`;
@@ -586,19 +582,17 @@ strokeStyle = path.color;
             const rowsContainer = document.getElementById('slide-rows-container');
             const paddingWrapper = document.getElementById('slide-padding-wrapper');
 
-             Apply Spacing & Padding
             rowsContainer.style.gap = `${gapSize}px`;
             paddingWrapper.style.paddingLeft = `${paddingSize}px`;
             paddingWrapper.style.paddingRight = `${paddingSize}px`;
 
-             Apply Font Sizes to individual items
             const textSpans = rowsContainer.querySelectorAll('.dynamic-text-item');
             textSpans.forEach(span => {
                 span.style.fontSize = `${fontSize}px`;
             });
         }
 
-         Render slide list rows
+        // Render layout
         function renderSlide() {
             const container = document.getElementById('slide-rows-container');
             container.innerHTML = '';
@@ -628,7 +622,7 @@ strokeStyle = path.color;
 
                 rowDiv.innerHTML = `
                     ${symbolHtml}
-<div class="dynamic-text-item text-slate-800 leading-relaxed font-medium tracking-tight">
+                    <div class="dynamic-text-item text-slate-800 leading-relaxed font-medium tracking-tight">
                         <span>${escapeHtml(item.text)}</span>
                     </div>
                 `;
@@ -636,13 +630,13 @@ strokeStyle = path.color;
                 container.appendChild(rowDiv);
             });
 
-             Re-apply slide sizes whenever structure changes
             applyScaleSettings();
         }
 
         function updateTitle() {
             const val = document.getElementById('input-title').value;
-            document.getElementById('slide-title').innerText = val || "식사 예절들";
+            document.
+getElementById('slide-title').innerText = val || "식사 예절들";
         }
 
         function updateSubtitle() {
@@ -710,7 +704,6 @@ strokeStyle = path.color;
             document.getElementById('input-title').value = "식사 예절들 🍽️";
             document.getElementById('input-subtitle').value = "맞는 식사 습관";
             
-             Reset Sliders
             document.getElementById('slider-font-size').value = 15;
             document.getElementById('slider-gap').value = 10;
             document.getElementById('slider-padding').value = 64;
@@ -729,20 +722,21 @@ strokeStyle = path.color;
             setupCanvasSize();
         }
 
-         Full Screen presentation mode toggling
+        // Slide view mode switcher
         let isPresentationMode = false;
         function toggleViewMode() {
             isPresentationMode = !isPresentationMode;
             const sidebar = document.getElementById('editor-sidebar');
             const canvasContainer = document.getElementById('canvas-container');
-const viewBtnText = document.getElementById('view-btn-text');
+            const viewBtnText = document.getElementById('view-btn-text');
             const viewIcon = document.getElementById('view-icon');
 
             if (isPresentationMode) {
                 sidebar.classList.add('hidden');
                 canvasContainer.className = "lg:col-span-12 flex flex-col items-center justify-center w-full max-w-4xl mx-auto";
                 viewBtnText.innerText = "편집 모드로 돌아가기";
-                viewIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`;
+                viewIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.
+943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`;
             } else {
                 sidebar.classList.remove('hidden');
                 canvasContainer.className = "lg:col-span-8 flex flex-col items-center justify-center";
@@ -750,7 +744,6 @@ const viewBtnText = document.getElementById('view-btn-text');
                 viewIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
             }
             
-             Re-setup canvas boundaries because frame dimensions updated
             setTimeout(() => {
                 setupCanvasSize();
                 redrawCanvas();
