@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>식사 예절들 - 16:9 Study Note Slide Designer</title>
+    <title>식사 예절들 - 16:9 Widescreen Slide Designer</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Gowun Dodum (Modern Korean note style) & Gowun Batang (Elegant Handwriting-ish Serif) & Nanum Pen Script -->
+    <!-- Google Fonts: Gowun Dodum & Gowun Batang & Nanum Pen Script -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
@@ -26,44 +26,50 @@
             font-family: 'Gowun Batang', serif;
         }
 
-        /* Paper texture background */
+        /* Paper texture background with a clean notebook feel */
         .paper-bg {
             background-color: #FAF8F5;
             background-image: 
                 radial-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 0),
-                linear-gradient(to bottom, transparent 39px, #e2e8f0 40px);
+                linear-gradient(to bottom, transparent 39px, #e5e5e5 40px);
             background-size: 24px 24px, 100% 40px;
         }
 
-        /* Subtle hand-drawn marker effect */
-        .marker-highlight {
-            background: linear-gradient(120deg, rgba(125, 211, 252, 0.45) 0%, rgba(125, 211, 252, 0.45) 100%);
+        /* Custom scrollbar for list inside the slide container */
+        .slide-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .slide-scroll::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.02);
+        }
+        .slide-scroll::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
             border-radius: 2px;
-            padding: 2px 6px;
+        }
+        .slide-scroll {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(148, 163, 184, 0.3) rgba(0, 0, 0, 0.02);
         }
 
-        /* Styled custom scrollbar for sidebar */
-        ::-webkit-scrollbar {
-            width: 6px;
+        /* Prevent system scrollbars in editor area */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 3px;
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-start p-4 md:p-8">
 
-    <!-- Header Tools Panel -->
+    <!-- Tool Header -->
     <div class="w-full max-w-6xl bg-white/90 backdrop-blur-md border border-slate-200 rounded-2xl shadow-sm p-4 mb-6 flex flex-wrap gap-4 items-center justify-between z-10">
         <div class="flex items-center gap-3">
-            <span class="text-xl">🍽️</span>
+            <span class="text-xl">✍️</span>
             <div>
-                <h1 class="text-sm font-semibold text-slate-800">한국 식사 예절 템플릿 빌더</h1>
-                <p class="text-xs text-slate-500">16:9 단일 열(One Column) 레이아웃</p>
+                <h1 class="text-sm font-semibold text-slate-800">식사 예절 16:9 슬라이드 & 드로잉 빌더</h1>
+                <p class="text-xs text-slate-500">원하는 대로 자유롭게 적고, 화면 위에 그림과 필기를 남겨보세요.</p>
             </div>
         </div>
         <div class="flex flex-wrap items-center gap-2">
@@ -77,18 +83,68 @@
         </div>
     </div>
 
-    <!-- Main Content Area: Editor + Live Canvas -->
+    <!-- Main Workspace -->
     <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- Sidebar Customizer (Collapsible in presentation mode) -->
+        <!-- Sidebar Controls -->
         <div id="editor-sidebar" class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-5 shadow-sm space-y-5 transition-all">
-            <div class="pb-3 border-b border-slate-100">
-                <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-<svg class="w-4 h-4 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-                    내용 실시간 편집
+<!-- Drawing Tool Settings -->
+            <div>
+                <h2 class="text-xs font-bold text-slate-800 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                    화면 그리기 / 마킹 도구
                 </h2>
-                <p class="text-[11px] text-slate-400 mt-1">리스트를 한 행씩 단일 열로 정렬합니다. 클릭하여 하이라이트를 설정하세요.</p>
+                
+                <!-- Drawing Canvas Mode Toggle -->
+                <div class="grid grid-cols-2 gap-2 mb-3">
+                    <button id="btn-mode-interact" onclick="setInteractionMode('interact')" class="py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1">
+                        <span>🖐️ 슬라이드 제어</span>
+                    </button>
+                    <button id="btn-mode-draw" onclick="setInteractionMode('draw')" class="py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1">
+                        <span>✍️ 그리기 모드</span>
+                    </button>
+                </div>
+
+                <!-- Drawing Presets (Only visible when drawing mode is active) -->
+                <div class="bg-slate-50 rounded-xl p-3 border border-slate-100 space-y-3">
+                    <!-- Tool Types -->
+                    <div>
+                        <span class="text-[10px] text-slate-400 font-bold block mb-1.5">도구 선택</span>
+                        <div class="flex gap-1.5">
+                            <button id="tool-pen" onclick="setDrawTool('pen')" class="flex-1 py-1 text-[11px] font-semibold rounded bg-slate-800 text-white transition-all">✏️ 일반 펜</button>
+                            <button id="tool-highlight" onclick="setDrawTool('highlighter')" class="flex-1 py-1 text-[11px] font-semibold rounded bg-white border border-slate-200 text-slate-600 transition-all">✨ 형광펜</button>
+                            <button id="tool-eraser" onclick="setDrawTool('eraser')" class="flex-1 py-1 text-[11px] font-semibold rounded bg-white border border-slate-200 text-slate-600 transition-all">🧽 지우개</button>
+                        </div>
+                    </div>
+
+                    <!-- 5 Basic Colors -->
+                    <div>
+                        <span class="text-[10px] text-slate-400 font-bold block mb-1.5">펜 / 형광펜 색상 (5 Basic Colors)</span>
+                        <div class="flex items-center gap-2">
+                            <button onclick="setDrawColor('#1e293b')" class="w-6 h-6 rounded-full bg-[#1e293b] border-2 border-white ring-2 ring-transparent transition-all" id="col-navy" title="Muted Navy"></button>
+                            <button onclick="setDrawColor('#0284c7')" class="w-6 h-6 rounded-full bg-[#0284c7] border-2 border-white ring-2 ring-transparent transition-all" id="col-blue" title="Soft Sky Blue"></button>
+                            <button onclick="setDrawColor('#d97706')" class="w-6 h-6 rounded-full bg-[#d97706] border-2 border-white ring-2 ring-transparent transition-all" id="col-amber" title="Warm Amber"></button>
+                            <button onclick="setDrawColor('#059669')" class="w-6 h-6 rounded-full bg-[#059669] border-2 border-white ring-2 ring-transparent transition-all" id="col-green" title="Sage Green"></button>
+                            <button onclick="setDrawColor('#db2777')" class="w-6 h-6 rounded-full bg-[#db2777] border-2 border-white ring-2 ring-transparent transition-all" id="col-rose" title="Elegant Rose"></button>
+                        </div>
+                    </div>
+
+                    <!-- Brush Size -->
+                    <div>
+                        <div class="flex justify-between text-[10px] text-slate-400 font-bold mb-1">
+                            <span>브러시 굵기</span>
+                            <span id="brush-size-val">4px</span>
+</div>
+                        <input type="range" id="slider-brush-width" min="2" max="40" value="4" oninput="updateBrushWidth(this.value)" class="w-full accent-slate-700">
+                    </div>
+
+                    <button onclick="clearCanvas()" class="w-full py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold rounded-lg border border-rose-100 transition-all">
+                        🗑️ 그림 전체 지우기
+                    </button>
+                </div>
             </div>
+
+            <hr class="border-slate-100">
 
             <!-- Title Inputs -->
             <div class="space-y-3">
@@ -102,220 +158,455 @@
                 </div>
             </div>
 
-            <!-- Quick Controls for Layout -->
-            <div class="space-y-3">
-                <label class="block text-xs font-medium text-slate-600">행 데코레이션 설정</label>
-                <div class="flex items-center gap-4">
-                    <label class="inline-flex items-center text-xs text-slate-600 cursor-pointer">
-                        <input type="checkbox" id="toggle-marker-all" onchange="toggleAllMarkers(this.checked)" class="rounded text-sky-500 mr-2">
-                        전체 형광펜 칠하기
-                    </label>
-                    <label class="inline-flex items-center text-xs text-slate-600 cursor-pointer">
-                        <input type="checkbox" id="toggle-symbols" onchange="toggleSymbols(this.checked)" checked class="rounded text-indigo-500 mr-2">
-                        기호(✓/✗) 표시
-                    </label>
+            <!-- Size Scaling Adjusters -->
+            <div class="space-y-4 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                <div>
+                    <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                        <span>텍스트 글자 크기</span>
+                        <span id="text-size-val">15px</span>
+                    </div>
+                    <input type="range" id="slider-font-size" min="10" max="24" value="15" oninput="applyScaleSettings()" class="w-full accent-sky-500">
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                        <span>줄 간격 (Spacing)</span>
+                        <span id="gap-size-val">10px</span>
+                    </div>
+                    <input type="range" id="slider-gap" min="2" max="24" value="10" oninput="applyScaleSettings()" class="w-full accent-sky-500">
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                        <span>좌우 여백 (Padding)</span>
+                        <span id="padding-size-val">64px</span>
+                    </div>
+                    <input type="range" id="slider-padding" min="16" max="96" value="64" oninput="applyScaleSettings()" class="w-full accent-sky-500">
                 </div>
             </div>
 
             <!-- List Editor Items -->
-            <div class="space-y-3">
-                <label class="block text-xs font-medium text-slate-700">식사 습관 항목 관리 (단일 열 리스트)</label>
-                <div id="items-editor-container" class="space-y-2 max-h-[300px] overflow-y-auto pr-1">
-                    <!-- Loaded dynamically -->
+            <div class="space-y-3 pt-1">
+                <div class="flex justify-between items-center">
+                    <label class="text-xs font-bold text-slate-700">식사 습관 목록 관리</label>
+                    <label class="inline-flex items-center text-[10px] text-slate-400 cursor-pointer">
+                        <input type="checkbox" id="toggle-symbols" onchange="toggleSymbols(this.checked)" checked class="rounded text-indigo-500 mr-1.5 w-3.5 h-3.5">
+                        기호(✓/✗) 표시
+                    </label>
+                </div>
+                <div id="items-editor-container" class="space-y-2 max-h-[200px] overflow-y-auto pr-1 no-scrollbar border-t border-b border-slate-100 py-2">
+                    <!-- Dynamic Loading -->
                 </div>
                 <button onclick="addNewItem()" class="w-full py-2 border border-dashed border-slate-300 hover:border-sky-400 hover:bg-sky-50/50 text-sky-600 rounded-lg text-xs font-medium transition-all flex items-center justify-center gap-1">
-                    <span>+ 새로운 습관 추가</span>
+                    <span>+ 새로운 항목 추가</span>
                 </button>
-            </div>
-
-            <div class="bg-sky-50 rounded-xl p-3 border border-sky-100">
-                <p class="text-[11px] text-sky-800 leading-relaxed">
-                    💡 <strong>Aesthetic Note:</strong> 슬라이드 우측 상단이나 하단에 위치한 미니 낙서들은 실제 수작업으로 적은 학습지 노트를 연상시킵니다. 유튜브 화면 구성에 맞게 한 줄씩 정돈된 단일 열입니다.
-                </p>
             </div>
         </div>
 
-        <!-- Interactive 16:9 Slide Canvas -->
-        <div id="canvas-container" class="lg:col-span-8 flex flex-col items-center justify-center">
+        <!-- Interactive Widescreen Slide Preview -->
+<div id="canvas-container" class="lg:col-span-8 flex flex-col items-center justify-center">
             
-            <!-- 16:9 Aspect Ratio Box with fluid scale container -->
-            <div class="w-full aspect-video min-w-[320px] max-w-[1920px] relative rounded-2xl shadow-lg border border-slate-200/60 overflow-hidden select-none transition-all duration-300">
+            <!-- 16:9 Aspect Ratio Main Container -->
+            <div id="slide-outer-frame" class="w-full aspect-video min-w-[320px] max-w-[1920px] relative rounded-2xl shadow-lg border border-slate-200/60 overflow-hidden select-none transition-all duration-300">
                 
-                <!-- Slide Paper Background with grid -->
-                <div class="absolute inset-0 paper-bg flex flex-col p-6 md:p-8 justify-between">
+                <!-- Main Paper Background -->
+                <div class="absolute inset-0 paper-bg flex flex-col justify-between py-6 md:py-8">
                     
-                    <!-- Doodles & Accents Overlay (Positioned tastefully around slide) -->
-                    <!-- Star Accent Top Left -->
-                    <div class="absolute top-6 left-12 opacity-80 pointer-events-none select-none">
-<svg class="w-8 h-8 text-sky-400/60 fill-sky-300/30" viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                        </svg>
-                        <svg class="w-4 h-4 text-blue-400/50 fill-blue-300/20 absolute -bottom-3 -right-3" viewBox="0 0 24 24">
+                    <!-- Aesthetic Minimal Doodles Layer -->
+                    <!-- Star Doodles Left -->
+                    <div class="absolute top-6 left-12 opacity-80 pointer-events-none">
+                        <svg class="w-8 h-8 text-sky-400/50 fill-sky-300/20" viewBox="0 0 24 24">
                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                         </svg>
                     </div>
 
-                    <!-- Sketchy Tape Top Left Accent -->
-                    <div class="absolute top-4 left-[24%] w-16 h-5 bg-sky-200/30 -rotate-6 border border-sky-300/10 rounded-sm pointer-events-none"></div>
+                    <!-- Clean paper tape on top -->
+                    <div class="absolute top-4 left-[24%] w-16 h-5 bg-sky-200/20 -rotate-6 border border-sky-300/5 rounded-sm pointer-events-none"></div>
 
-                    <!-- Subtle Hand-drawn Sketch Notebook Top Right -->
+                    <!-- Sketchy notebook binding mockup on right -->
                     <div class="absolute top-12 right-12 w-20 h-16 border-2 border-slate-300/40 rounded rotate-6 flex flex-col p-1.5 pointer-events-none opacity-60">
                         <div class="w-full h-1 bg-slate-300/60 rounded-full mb-1"></div>
                         <div class="w-full h-1 bg-slate-300/40 rounded-full mb-1"></div>
-                        <div class="w-4/5 h-1 bg-slate-300/40 rounded-full mb-1"></div>
                         <div class="w-1/2 h-1 bg-sky-300/40 rounded-full"></div>
                         <div class="absolute -top-3 left-3 w-2 h-4 border-l-2 border-r-2 border-slate-400/40"></div>
                         <div class="absolute -top-3 left-8 w-2 h-4 border-l-2 border-r-2 border-slate-400/40"></div>
                         <div class="absolute -top-3 left-13 w-2 h-4 border-l-2 border-r-2 border-slate-400/40"></div>
                     </div>
 
-                    <!-- Subtle Sparkle Doodles Right Side -->
-                    <div class="absolute right-[12%] top-[45%] opacity-60 pointer-events-none">
-                        <svg class="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
-                        </svg>
-                    </div>
-
-                    <!-- Tape bottom-right corner -->
-                    <div class="absolute bottom-6 right-10 w-20 h-6 bg-amber-100/30 rotate-12 border border-amber-200/10 pointer-events-none"></div>
-
-                    <!-- Slide Content Wrap -->
+                    <!-- Slide Contents Wrapper -->
                     <div class="flex flex-col h-full justify-between z-10">
                         
-                        <!-- Header Section -->
-                        <div class="text-center mt-2 relative">
-                            <!-- Small decorative scribble pointer -->
-                            <div class="absolute -bottom-2 left-[58%] handwritten-font text-sky-500/80 text-xl font-bold select-none rotate-6 pointer-events-none">
-                                ✓ Pen Note
-                            </div>
-                            <!-- Title -->
-                            <h2 id="slide-title" class="serif-font text-3xl md:text-4xl lg:text-4xl font-bold text-slate-800 flex items-center justify-center gap-2 mb-1 tracking-tight">
+                        <!-- Header Title Space -->
+                        <div class="text-center mt-1 relative">
+                            <h2 id="slide-title" class="serif-font text-2xl md:text-3xl lg:text-4xl font-bold text-slate-800 flex items-center justify-center gap-2 mb-1 tracking-tight">
                                 식사 예절들 🍽️
                             </h2>
-                            <!-- Subtitle with soft sky blue bottom accent border -->
                             <div class="inline-block relative">
-                                <span id="slide-subtitle" class="text-xs md:text-sm text-slate-500 font-medium tracking-widest bg-slate-100 px-3 py-0.5 rounded-full">
+                                <span id="slide-subtitle" class="text-[10px] md:text-xs text-slate-500 font-medium tracking-widest bg-slate-100 px-3 py-0.5 rounded-full">
                                     맞는 식사 습관
                                 </span>
-                                <!-- Small pen doodle line underneath -->
                                 <svg class="absolute -bottom-1.5 left-0 w-full h-1 text-sky-400/80" fill="none" stroke="currentColor" viewBox="0 0 100 10" preserveAspectRatio="none">
-<path d="M0,5 Q50,9 100,5" stroke-width="2" stroke-linecap="round" />
+                                    <path d="M0,5 Q50,9 100,5" stroke-width="2" stroke-linecap="round" />
                                 </svg>
                             </div>
                         </div>
 
-                        <!-- Divider Thin Line -->
-                        <div class="w-full h-[1px] bg-slate-300/40 my-3 relative">
-                            <div class="absolute -top-[5px] left-[15%] w-2 h-2 rounded-full bg-slate-300/60"></div>
-                            <div class="absolute -top-[5px] right-[15%] w-2 h-2 rounded-full bg-slate-300/60"></div>
-                        </div>
+                        <!-- Thin Divider -->
+                        <div class="w-full h-[1px] bg-slate-300/40 my-2 relative"></div>
 
-                        <!-- ONE COLUMN Content Rows (The core requirement) -->
-                        <div class="flex-grow flex flex-col justify-center px-4 md:px-12 lg:px-16 overflow-hidden">
-                            <!-- Row list wrapper -->
-                            <div id="slide-rows-container" class="space-y-1.5 md:space-y-2 lg:space-y-2.5">
-                                <!-- Appended Dynamically -->
+                        <!-- ONE COLUMN Grid Area with Scrolldown Feature -->
+                        <div id="slide-padding-wrapper" class="flex-grow overflow-hidden flex flex-col justify-center px-16 my-2">
+                            <!-- Scrollable list container inside the 16:9 canvas -->
+                            <div id="slide-scroll-view" class="slide-scroll overflow-y-auto max-h-[180px] md:max-h-[220px] lg:max-h-[260px] pr-2">
+                                <div id="slide-rows-container" class="flex flex-col justify-start">
+<!-- Appended Dynamically -->
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Slide Footer -->
-                        <div class="flex items-center justify-between text-[10px] md:text-xs text-slate-400/80 serif-font pt-2 px-4 border-t border-slate-200/20">
-                            <span>* 한국의 식문화와 어른을 공경하는 정갈한 식습관</span>
-                            <span class="handwritten-font text-base text-sky-500/80">Aesthetic Study Note</span>
+                        <!-- Slide Footer with Signature centered at the bottom -->
+                        <div class="flex items-center justify-center pt-2 px-8 border-t border-slate-200/10">
+                            <span class="handwritten-font text-lg text-slate-500 tracking-wider">@Ryuna’s_horizons</span>
                         </div>
 
                     </div>
                 </div>
 
-            </div>
+                <!-- Overlay Canvas for Drawing/Writing -->
+                <canvas id="drawing-canvas" class="absolute inset-0 z-20 pointer-events-none cursor-crosshair"></canvas>
 
-            <p class="text-xs text-slate-400 mt-3 flex items-center gap-1">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                위 16:9 슬라이드를 유튜브 녹화 화면에 바로 올리거나 캡처해서 활용할 수 있습니다.
-            </p>
+            </div>
         </div>
 
     </div>
 
     <script>
-        // Default Dataset containing dining etiquette (mixture of good starts and custom bad/good habits)
+        // Core Dining Etiquette Dataset
         let etiquetteData = [
-            { text: "식사를 시작할 때: 어른이 먼저 숟가락을 드신 후에 드세요", isPositive: true, isHighlighted: true },
-            { text: "밥그릇 들고 먹지 않기 (그릇은 상 위에 두고 정갈하게 먹기)", isPositive: true, isHighlighted: false },
-            { text: "수저를 한 손에 동시에 쥐지 않기 (숟가락과 젓가락은 번갈아가며 사용)", isPositive: true, isHighlighted: false },
-            { text: "사용하지 않는 다른 손은 테이블 아래에 두거나 얌전히 올리기", isPositive: true, isHighlighted: false },
-            { text: "음식을 씹을 때 짭짭 소리 내지 않기", isPositive: true, isHighlighted: true },
-            { text: "입안에 음식물이 있을 때는 말하지 않기", isPositive: true, isHighlighted: false },
-            { text: "맛있는 반찬만 집요하게 골라 먹지 않기", isPositive: true, isHighlighted: false },
-            { text: "짝이 맞지 않는 다른 젓가락 섞어서 짝짝이 쓰지 않기", isPositive: true, isHighlighted: false },
-            { text: "숟가락이나 젓가락으로 밥그릇을 긁거나 소리내지 않기", isPositive: true, isHighlighted: false },
-            { text: "공기에 밥을 과하게 남기지 않는 고운 습관 들이기", isPositive: true, isHighlighted: false },
-            { text: "다리를 심하게 떨면서 식사하지 않기", isPositive: false, isHighlighted: true }
+            { text: "식사를 시작할 때: 어른이 먼저 수저를 드신 후에 시작하기", isPositive: true },
+            { text: "밥그릇 들고 먹지 않기 (그릇은 항상 식탁 위에 내려두기)", isPositive: true },
+            { text: "수저를 한 손에 동시에 쥐지 않기 (숟가락과 젓가락은 번갈아가며 사용)", isPositive: true },
+            { text: "사용하지 않는 손은 테이블 아래에 두거나 얌전히 올리기", isPositive: true },
+            { text: "음식을 씹을 때 입을 다물고 짭짭 소리 내지 않기", isPositive: true },
+            { text: "입안에 음식물이 들어 있을 때는 말하지 않기", isPositive: true },
+            { text: "맛있는 반찬만 집요하게 골라 먹지 않기", isPositive: true },
+            { text: "짝이 맞지 않는 다른 젓가락 섞어서 짝짝이 쓰지 않기", isPositive: true },
+            { text: "숟가락이나 젓가락으로 그릇 긁는 소리 내지 않기", isPositive: true },
+            { text: "공기에 밥을 남기지 않는 올바른 습관 들이기", isPositive: true },
+            { text: "식사 도중 다리를 심하게 떨면서 먹지 않기", isPositive: false }
         ];
 
-        // Global flag for symbols display
         let showSymbols = true;
+        
+        // Drawing canvas state
+        let canvas, ctx;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        let drawMode = 'interact'; // 'interact' or 'draw'
+        let currentTool = 'pen'; // 'pen', 'highlighter', 'eraser'
+        let strokeColor = '#1e293b'; // Starts with Navy
+        let brushSize = 4;
+        
+        // Storing drawing paths relative to canvas width/height to make drawings perfectly responsive
+        let drawPaths = [];
+        let currentPath = null;
 
         // Initialize App
         function init() {
+            canvas = document.getElementById('drawing-canvas');
+            ctx = canvas.getContext('2d');
+            
             renderEditor();
             renderSlide();
+            applyScaleSettings();
+            setupCanvasSize();
+            setupDrawingEvents();
+            updateColorButtonUI();
+
+            // Handle Resize to repaint canvas accurately
+            window.addEventListener('resize', () => {
+                setupCanvasSize();
+                redrawCanvas();
+            });
         }
 
-        // Render Sidebar Inputs
+        // Setup Drawing Canvas Sizing
+        function setupCanvasSize() {
+            const frame = document.getElementById('slide-outer-frame');
+            const rect = frame.getBoundingClientRect();
+            
+            // Adjust to device pixel ratio for super crisp drawings
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = rect.width * dpr;
+            canvas.height = rect.height * dpr;
+            ctx.scale(dpr, dpr);
+            
+            // CSS Size
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
+        }
+
+        // Set interaction type (Interact with slide OR Pen Draw on screen)
+        function setInteractionMode(mode) {
+            drawMode = mode;
+            const btnInteract = document.getElementById('btn-mode-interact');
+            const btnDraw = document.getElementById('btn-mode-draw');
+
+            if (mode === 'draw') {
+                canvas.classList.remove('pointer-events-none');
+                btnDraw.className = "py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1";
+                btnInteract.className = "py-1.
+5 px-3 text-xs font-medium rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1";
+            } else {
+                canvas.classList.add('pointer-events-none');
+                btnInteract.className = "py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-sky-50 border-sky-300 text-sky-700 flex items-center justify-center gap-1";
+                btnDraw.className = "py-1.5 px-3 text-xs font-medium rounded-lg border transition-all bg-slate-50 border-slate-200 text-slate-600 flex items-center justify-center gap-1";
+            }
+        }
+
+        // Set Drawing Tool
+        function setDrawTool(tool) {
+            currentTool = tool;
+            document.getElementById('tool-pen').className = `flex-1 py-1 text-[11px] font-semibold rounded transition-all ${tool === 'pen' ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-600'}`;
+            document.getElementById('tool-highlight').className = `flex-1 py-1 text-[11px] font-semibold rounded transition-all ${tool === 'highlighter' ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-600'}`;
+            document.getElementById('tool-eraser').className = `flex-1 py-1 text-[11px] font-semibold rounded transition-all ${tool === 'eraser' ? 'bg-slate-800 text-white' : 'bg-white border border-slate-200 text-slate-600'}`;
+
+            // Adjust default brush size indicator
+            if (tool === 'highlighter') {
+                document.getElementById('slider-brush-width').value = 16;
+                updateBrushWidth(16);
+            } else if (tool === 'pen') {
+                document.getElementById('slider-brush-width').value = 4;
+                updateBrushWidth(4);
+            } else {
+                document.getElementById('slider-brush-width').value = 12;
+                updateBrushWidth(12);
+            }
+        }
+
+        // Set Draw Color
+        function setDrawColor(color) {
+            strokeColor = color;
+            updateColorButtonUI();
+        }
+
+        function updateColorButtonUI() {
+            const colors = {
+                '#1e293b': 'col-navy',
+                '#0284c7': 'col-blue',
+                '#d97706': 'col-amber',
+                '#059669': 'col-green',
+                '#db2777': 'col-rose'
+            };
+            
+            Object.keys(colors).forEach(c => {
+                const btn = document.getElementById(colors[c]);
+                if (strokeColor === c) {
+                    btn.classList.add('ring-offset-2', 'ring-slate-400');
+                    btn.classList.remove('ring-transparent');
+                } else {
+                    btn.classList.remove('ring-offset-2', 'ring-slate-400');
+                    btn.classList.add('ring-transparent');
+                }
+            });
+        }
+
+        function updateBrushWidth(val) {
+            brushSize = val;
+            document.getElementById('brush-size-val').innerText = `${val}px`;
+        }
+
+        // Clear Drawings
+        function clearCanvas() {
+            drawPaths = [];
+            redrawCanvas();
+        }
+
+        // Redraw saved coordinates relative to the current canvas dimensions
+        function redrawCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            ctx.clearRect(0, 0, rect.width, rect.height);
+
+            drawPaths.forEach(path => {
+                if (path.points.length < 2) return;
+
+                ctx.beginPath();
+                ctx.lineWidth = path.size;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                if (path.type === 'eraser') {
+                    // Simulating erase by painting back the background color of the paper texture
+                    ctx.strokeStyle = '#FAF8F5'; 
+                    ctx.globalAlpha = 1.0;
+                } else if (path.type === 'highlighter') {
+                    ctx.strokeStyle = path.color;
+                    ctx.globalAlpha = 0.35; // Semitransparent highlighter
+                } else {
+                    ctx.
+strokeStyle = path.color;
+                    ctx.globalAlpha = 1.0;
+                }
+
+                const firstPoint = path.points[0];
+                ctx.moveTo(firstPoint.rx * rect.width, firstPoint.ry * rect.height);
+
+                for (let i = 1; i < path.points.length; i++) {
+                    const p = path.points[i];
+                    ctx.lineTo(p.rx * rect.width, p.ry * rect.height);
+                }
+                ctx.stroke();
+            });
+
+            // Restore global alpha
+            ctx.globalAlpha = 1.0;
+        }
+
+        // Canvas Drawing Interaction Handling
+        function setupDrawingEvents() {
+            const getPos = (e) => {
+                const rect = canvas.getBoundingClientRect();
+                // Handle both touch and mouse events
+                const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+                const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+                return {
+                    x: clientX - rect.left,
+                    y: clientY - rect.top,
+                    rx: (clientX - rect.left) / rect.width, // Saved as ratio (0-1) for responsiveness
+                    ry: (clientY - rect.top) / rect.height
+                };
+            };
+
+            const startDraw = (e) => {
+                if (drawMode !== 'draw') return;
+                isDrawing = true;
+                const pos = getPos(e);
+                lastX = pos.x;
+                lastY = pos.y;
+
+                currentPath = {
+                    type: currentTool,
+                    color: strokeColor,
+                    size: brushSize,
+                    points: [{ rx: pos.rx, ry: pos.ry }]
+                };
+                drawPaths.push(currentPath);
+            };
+
+            const draw = (e) => {
+                if (!isDrawing || drawMode !== 'draw') return;
+                e.preventDefault(); // Prevents scroll on mobile during draw
+                const pos = getPos(e);
+
+                ctx.beginPath();
+                ctx.lineWidth = brushSize;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+
+                if (currentTool === 'eraser') {
+                    ctx.strokeStyle = '#FAF8F5';
+                    ctx.globalAlpha = 1.0;
+                } else if (currentTool === 'highlighter') {
+                    ctx.strokeStyle = strokeColor;
+                    ctx.globalAlpha = 0.35;
+                } else {
+                    ctx.strokeStyle = strokeColor;
+                    ctx.globalAlpha = 1.0;
+                }
+
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+
+                lastX = pos.x;
+                lastY = pos.y;
+
+                // Save relative position
+                currentPath.points.push({ rx: pos.rx, ry: pos.ry });
+            };
+
+            const stopDraw = () => {
+                isDrawing = false;
+                currentPath = null;
+                redrawCanvas(); // Restores perfectly smoothed paths
+            };
+
+            // Mouse Listeners
+            canvas.addEventListener('mousedown', startDraw);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDraw);
+            canvas.addEventListener('mouseout', stopDraw);
+
+            // Touch Listeners
+            canvas.addEventListener('touchstart', startDraw, { passive: false });
+            canvas.addEventListener('touchmove', draw, { passive: false });
+            canvas.addEventListener('touchend', stopDraw);
+        }
+
+        // Render Sidebar Edit Elements
         function renderEditor() {
             const container = document.getElementById('items-editor-container');
             container.innerHTML = '';
 
             etiquetteData.forEach((item, index) => {
                 const itemDiv = document.createElement('div');
-                itemDiv.className = `p-2.5 rounded-lg border transition-all text-xs flex items-center justify-between gap-2 ${
-                    item.isHighlighted ? 'bg-sky-50 border-sky-200' : 'bg-slate-50 border-slate-200'
-                }`;
+                itemDiv.className = `p-2 rounded-lg border transition-all text-xs flex items-center justify-between gap-2 bg-slate-50 border-slate-200`;
 
                 itemDiv.innerHTML = `
-                    <div class="flex items-center gap-2 flex-grow">
-<!-- Toggle Button O/X -->
-                        <button onclick="toggleItemType(${index})" class="w-6 h-6 flex items-center justify-center rounded font-bold text-xs ${
+<div class="flex items-center gap-2 flex-grow">
+                        <button onclick="toggleItemType(${index})" class="w-6 h-6 flex-shrink-0 flex items-center justify-center rounded font-bold text-xs ${
                             item.isPositive ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                        }" title="클릭해서 바르게 고치기 혹은 피할 행동 표시 변경">
+                        }">
                             ${item.isPositive ? 'O' : 'X'}
                         </button>
                         
-                        <!-- Text Input -->
                         <input type="text" value="${item.text}" oninput="updateItemText(${index}, this.value)" 
-                               class="bg-transparent border-b border-transparent focus:border-slate-300 outline-none w-full font-medium text-slate-700">
+                               class="bg-transparent border-b border-transparent focus:border-slate-300 outline-none w-full font-medium text-slate-700 py-0.5">
                     </div>
-
-                    <div class="flex items-center gap-1.5 flex-shrink-0">
-                        <!-- Highlight Marker Button -->
-                        <button onclick="toggleHighlight(${index})" class="p-1.5 rounded hover:bg-slate-200 text-slate-500" title="형광펜 마커 강조">
-                            <span class="${item.isHighlighted ? 'text-sky-500' : 'text-slate-400'} text-xs">✨ 강조</span>
-                        </button>
-                        <!-- Delete Button -->
-                        <button onclick="removeItem(${index})" class="p-1.5 rounded hover:bg-rose-100 text-rose-500" title="삭제">
-                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                        </button>
-                    </div>
+                    <button onclick="removeItem(${index})" class="p-1.5 rounded hover:bg-rose-100 text-rose-500 flex-shrink-0">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
                 `;
                 container.appendChild(itemDiv);
             });
         }
 
-        // Render the Main Slide Rows (Single column, fluid sizing)
+        // Apply custom live layout metrics on slide container
+        function applyScaleSettings() {
+            const fontSize = document.getElementById('slider-font-size').value;
+            const gapSize = document.getElementById('slider-gap').value;
+            const paddingSize = document.getElementById('slider-padding').value;
+
+            // Update value labels
+            document.getElementById('text-size-val').innerText = `${fontSize}px`;
+            document.getElementById('gap-size-val').innerText = `${gapSize}px`;
+            document.getElementById('padding-size-val').innerText = `${paddingSize}px`;
+
+            const rowsContainer = document.getElementById('slide-rows-container');
+            const paddingWrapper = document.getElementById('slide-padding-wrapper');
+
+            // Apply Spacing & Padding
+            rowsContainer.style.gap = `${gapSize}px`;
+            paddingWrapper.style.paddingLeft = `${paddingSize}px`;
+            paddingWrapper.style.paddingRight = `${paddingSize}px`;
+
+            // Apply Font Sizes to individual items
+            const textSpans = rowsContainer.querySelectorAll('.dynamic-text-item');
+            textSpans.forEach(span => {
+                span.style.fontSize = `${fontSize}px`;
+            });
+        }
+
+        // Render slide list rows
         function renderSlide() {
             const container = document.getElementById('slide-rows-container');
             container.innerHTML = '';
 
-            etiquetteData.forEach((item, index) => {
+            etiquetteData.forEach((item) => {
                 const rowDiv = document.createElement('div');
-                // Clean modern study style for each row
-                rowDiv.className = "flex items-center gap-3 py-1 group transition-all duration-200 hover:translate-x-1";
+                rowDiv.className = "flex items-center gap-3 py-0.5 transition-all duration-200 hover:translate-x-1";
 
-                // Marker highlighting wrapper logic
-                const highlightClass = item.isHighlighted ? 'marker-highlight font-semibold' : '';
-
-                // Custom hand-drawn arrow/check icon instead of generic bullets
                 let symbolHtml = '';
                 if (showSymbols) {
                     if (item.isPositive) {
@@ -337,18 +628,20 @@
 
                 rowDiv.innerHTML = `
                     ${symbolHtml}
-                    <div class="text-xs md:text-[13px] lg:text-[14px] text-slate-800 leading-relaxed font-medium transition-all">
-                        <span class="${highlightClass}">${escapeHtml(item.text)}</span>
+<div class="dynamic-text-item text-slate-800 leading-relaxed font-medium tracking-tight">
+                        <span>${escapeHtml(item.text)}</span>
                     </div>
                 `;
 
                 container.appendChild(rowDiv);
             });
+
+            // Re-apply slide sizes whenever structure changes
+            applyScaleSettings();
         }
 
-        // Live updating elements
         function updateTitle() {
-const val = document.getElementById('input-title').value;
+            const val = document.getElementById('input-title').value;
             document.getElementById('slide-title').innerText = val || "식사 예절들";
         }
 
@@ -368,12 +661,6 @@ const val = document.getElementById('input-title').value;
             renderSlide();
         }
 
-        function toggleHighlight(index) {
-            etiquetteData[index].isHighlighted = !etiquetteData[index].isHighlighted;
-            renderEditor();
-            renderSlide();
-        }
-
         function removeItem(index) {
             etiquetteData.splice(index, 1);
             renderEditor();
@@ -382,22 +669,14 @@ const val = document.getElementById('input-title').value;
 
         function addNewItem() {
             etiquetteData.push({
-                text: "이곳을 클릭해 새로운 한식 습관을 작성해보세요",
-                isPositive: true,
-                isHighlighted: false
+                text: "새로운 예절 문구를 추가해보세요.",
+                isPositive: true
             });
             renderEditor();
             renderSlide();
             
-            // Scroll editor down to the new item
             const editorDiv = document.getElementById('items-editor-container');
             editorDiv.scrollTop = editorDiv.scrollHeight;
-        }
-
-        function toggleAllMarkers(checked) {
-            etiquetteData.forEach(item => item.isHighlighted = checked);
-            renderEditor();
-            renderSlide();
         }
 
         function toggleSymbols(checked) {
@@ -405,7 +684,6 @@ const val = document.getElementById('input-title').value;
             renderSlide();
         }
 
-        // Utility to escape HTML and avoid breakages
         function escapeHtml(text) {
             return text
                 .replace(/&/g, "&amp;")
@@ -415,33 +693,43 @@ const val = document.getElementById('input-title').value;
                 .replace(/'/g, "&#039;");
         }
 
-        // Reset to initial mockup content
         function resetDefaults() {
             etiquetteData = [
-                { text: "식사를 시작할 때: 어른이 먼저 숟가락을 드신 후에 드세요", isPositive: true, isHighlighted: true },
-                { text: "밥그릇 들고 먹지 않기 (그릇은 상 위에 두고 정갈하게 먹기)", isPositive: true, isHighlighted: false },
-                { text: "수저를 한 손에 동시에 쥐지 않기 (숟가락과 젓가락은 번갈아가며 사용)", isPositive: true, isHighlighted: false },
-                { text: "사용하지 않는 다른 손은 테이블 아래에 두거나 얌전히 올리기", isPositive: true, isHighlighted: false },
-                { text: "음식을 씹을 때 짭짭 소리 내지 않기", isPositive: true, isHighlighted: true },
-                { text: "입안에 음식물이 있을 때는 말하지 않기", isPositive: true, isHighlighted: false },
-                { text: "맛있는 반찬만 집요하게 골라 먹지 않기", isPositive: true, isHighlighted: false },
-                { text: "짝이 맞지 않는 다른 젓가락 섞어서 짝짝이 쓰지 않기", isPositive: true, isHighlighted: false },
-                { text: "숟가락이나 젓가락으로 밥그릇을 긁거나 소리내지 않기", isPositive: true, isHighlighted: false },
-                { text: "공기에 밥을 과하게 남기지 않는 고운 습관 들이기", isPositive: true, isHighlighted: false },
-                { text: "다리를 심하게 떨면서 식사하지 않기", isPositive: false, isHighlighted: true }
+                { text: "식사를 시작할 때: 어른이 먼저 수저를 드신 후에 시작하기", isPositive: true },
+                { text: "밥그릇 들고 먹지 않기 (그릇은 항상 식탁 위에 내려두기)", isPositive: true },
+                { text: "수저를 한 손에 동시에 쥐지 않기 (숟가락과 젓가락은 번갈아가며 사용)", isPositive: true },
+                { text: "사용하지 않는 손은 테이블 아래에 두거나 얌전히 올리기", isPositive: true },
+                { text: "음식을 씹을 때 입을 다물고 짭짭 소리 내지 않기", isPositive: true },
+                { text: "입안에 음식물이 들어 있을 때는 말하지 않기", isPositive: true },
+                { text: "맛있는 반찬만 집요하게 골라 먹지 않기", isPositive: true },
+                { text: "짝이 맞지 않는 다른 젓가락 섞어서 짝짝이 쓰지 않기", isPositive: true },
+                { text: "숟가락이나 젓가락으로 그릇 긁는 소리 내지 않기", isPositive: true },
+                { text: "공기에 밥을 남기지 않는 올바른 습관 들이기", isPositive: true },
+                { text: "식사 도중 다리를 심하게 떨면서 먹지 않기", isPositive: false }
             ];
             document.getElementById('input-title').value = "식사 예절들 🍽️";
             document.getElementById('input-subtitle').value = "맞는 식사 습관";
-            document.getElementById('toggle-marker-all').checked = false;
+            
+            // Reset Sliders
+            document.getElementById('slider-font-size').value = 15;
+            document.getElementById('slider-gap').value = 10;
+            document.getElementById('slider-padding').value = 64;
             document.getElementById('toggle-symbols').checked = true;
             showSymbols = true;
+            
+            drawPaths = [];
+            setInteractionMode('interact');
+            setDrawTool('pen');
+            setDrawColor('#1e293b');
+            
             updateTitle();
             updateSubtitle();
             renderEditor();
             renderSlide();
+            setupCanvasSize();
         }
 
-        // Presentation / Recording Toggle
+        // Full Screen presentation mode toggling
         let isPresentationMode = false;
         function toggleViewMode() {
             isPresentationMode = !isPresentationMode;
@@ -451,23 +739,24 @@ const viewBtnText = document.getElementById('view-btn-text');
             const viewIcon = document.getElementById('view-icon');
 
             if (isPresentationMode) {
-                // Collapse sidebar, expand canvas preview to maximum space
                 sidebar.classList.add('hidden');
                 canvasContainer.className = "lg:col-span-12 flex flex-col items-center justify-center w-full max-w-4xl mx-auto";
                 viewBtnText.innerText = "편집 모드로 돌아가기";
-                // Show EyeOff SVG
                 viewIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>`;
             } else {
-                // Restore columns
                 sidebar.classList.remove('hidden');
                 canvasContainer.className = "lg:col-span-8 flex flex-col items-center justify-center";
                 viewBtnText.innerText = "캡처용 전체 화면 모드";
-                // Show Eye SVG
                 viewIcon.innerHTML = `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>`;
             }
+            
+            // Re-setup canvas boundaries because frame dimensions updated
+            setTimeout(() => {
+                setupCanvasSize();
+                redrawCanvas();
+            }, 350);
         }
 
-        // Auto-run on load
         window.onload = init;
     </script>
 </body>
